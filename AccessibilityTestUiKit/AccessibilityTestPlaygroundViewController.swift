@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class AccessibilityTestPlaygroundViewController: UIViewController {
 
@@ -102,4 +103,40 @@ class GenericTestViewController: UIViewController {
             label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
         ])
     }
+}
+
+#Preview("Playground Router") {
+    let feature = AccessibilityFeature.allFeatures.first ?? AccessibilityFeature(
+        name: "Preview",
+        icon: "sparkles",
+        shortDescription: "",
+        fullDescription: "",
+        platforms: ["iOS"],
+        color: .systemBlue,
+        activationSteps: [],
+        category: .vision
+    )
+    let vc = AccessibilityTestPlaygroundViewController(feature: feature)
+    vc.title = feature.name
+    let nav = UINavigationController(rootViewController: vc)
+    nav.navigationBar.prefersLargeTitles = true
+    return nav
+}
+
+#Preview("Generic Test") {
+    let feature = AccessibilityFeature.allFeatures.first ?? AccessibilityFeature(
+        name: "Preview",
+        icon: "sparkles",
+        shortDescription: "",
+        fullDescription: "",
+        platforms: ["iOS"],
+        color: .systemBlue,
+        activationSteps: [],
+        category: .vision
+    )
+    let vc = GenericTestViewController(feature: feature)
+    vc.title = feature.name
+    let nav = UINavigationController(rootViewController: vc)
+    nav.navigationBar.prefersLargeTitles = true
+    return nav
 }

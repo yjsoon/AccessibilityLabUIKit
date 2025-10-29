@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import SwiftUI
 
 class DarkInterfaceTestViewController: UIViewController {
+
+    // MARK: - EXERCISE TODO #3: Dark Mode & Contrast (UIKit)
+    // TODO #3: Make this screen adapt to the current interface style and use semantic colors so it looks great in light and dark modes.
+    // LEARNING GOAL: Detect appearance changes with trait collections and choose the right UIKit semantic colours.
 
     private var scrollView: UIScrollView!
     private var contentStackView: UIStackView!
@@ -94,9 +99,13 @@ class DarkInterfaceTestViewController: UIViewController {
         titleLabel.adjustsFontForContentSizeCategory = true
         container.addArrangedSubview(titleLabel)
 
-        let isDark = traitCollection.userInterfaceStyle == .dark
         let modeLabel = UILabel()
-        modeLabel.text = isDark ? "Dark Mode (\(UIImage(systemName: "moon.fill")!.description))" : "Light Mode (\(UIImage(systemName: "sun.max.fill")!.description))"
+        // TODO #3: Replace this placeholder with logic that checks `traitCollection.userInterfaceStyle`.
+        // Try showing "Dark Mode" or "Light Mode" and pair it with a SF Symbol like sun or moon.
+        // Example:
+        // let isDark = traitCollection.userInterfaceStyle == .dark
+        // modeLabel.text = isDark ? "Dark Mode" : "Light Mode"
+        modeLabel.text = "Interface style goes here"
         modeLabel.font = .preferredFont(forTextStyle: .title2)
         modeLabel.adjustsFontForContentSizeCategory = true
         modeLabel.textAlignment = .center
@@ -129,10 +138,13 @@ class DarkInterfaceTestViewController: UIViewController {
         titleLabel.adjustsFontForContentSizeCategory = true
         container.addArrangedSubview(titleLabel)
 
+        // TODO #3: Swap these placeholders with the semantic colours that best represent each case.
         let colors: [(UIColor, String)] = [
-            (.label, "Primary Text"),
-            (.secondaryLabel, "Secondary Text"),
-            (.tertiaryLabel, "Tertiary Text")
+            (.black, "Primary Text (placeholder)")
+            // .label, .secondaryLabel, .tertiaryLabel → uncomment when you're ready
+            // (.label, "Primary Text"),
+            // (.secondaryLabel, "Secondary Text"),
+            // (.tertiaryLabel, "Tertiary Text")
         ]
 
         for (color, name) in colors {
@@ -161,7 +173,8 @@ class DarkInterfaceTestViewController: UIViewController {
         label.text = name
         label.font = .preferredFont(forTextStyle: .body)
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = color
+        // TODO #3: Once you swap in semantic colours, decide whether to keep the sample colour here or rely on `.label` for contrast.
+        label.textColor = .label
         stackView.addArrangedSubview(label)
 
         NSLayoutConstraint.activate([
@@ -187,10 +200,11 @@ class DarkInterfaceTestViewController: UIViewController {
         titleLabel.adjustsFontForContentSizeCategory = true
         container.addArrangedSubview(titleLabel)
 
+        // TODO #3: Replace these placeholder values with the appropriate semantic backgrounds (systemBackground, secondarySystemBackground, etc.).
         let backgrounds: [(UIColor, String)] = [
-            (.systemBackground, "Primary Background"),
-            (.secondarySystemBackground, "Secondary Background"),
-            (.tertiarySystemBackground, "Tertiary Background")
+            (.white, "Primary Background (placeholder)"),
+            (.lightGray, "Secondary Background (placeholder)"),
+            (.darkGray, "Tertiary Background (placeholder)")
         ]
 
         for (bgColor, name) in backgrounds {
@@ -320,4 +334,12 @@ class DarkInterfaceTestViewController: UIViewController {
 
         return container
     }
+}
+
+#Preview("Dark Interface") {
+    let vc = DarkInterfaceTestViewController()
+    vc.title = "Dark Interface"
+    let nav = UINavigationController(rootViewController: vc)
+    nav.navigationBar.prefersLargeTitles = true
+    return nav
 }

@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import SwiftUI
 
 class AccessibilityDetailViewController: UIViewController {
+
+    // MARK: - EXERCISE TODO #7: Detail Screen Adaptations (UIKit)
+    // TODO #7: Hide decorative elements and simplify layouts when text grows, mirroring the SwiftUI progressive exercise.
+    // LEARNING GOAL: Apply Dynamic Type heuristics to secondary screens as well.
 
     // MARK: - Properties
     private let feature: AccessibilityFeature
@@ -82,30 +87,24 @@ class AccessibilityDetailViewController: UIViewController {
 
     // MARK: - Content Population
     private func populateContent() {
-        // Header icon (hidden at accessibility sizes)
-        if !isAccessibilitySize {
-            let iconView = createIconView()
-            contentStackView.addArrangedSubview(iconView)
-        }
+        // TODO #7: At accessibility sizes, consider hiding the decorative icon below.
+        let iconView = createIconView()
+        contentStackView.addArrangedSubview(iconView)
 
         // Feature name
         let nameLabel = createFeatureNameLabel()
         contentStackView.addArrangedSubview(nameLabel)
 
-        // Short description (hidden at accessibility sizes)
-        if !isAccessibilitySize {
-            let shortDescLabel = createShortDescriptionLabel()
-            contentStackView.addArrangedSubview(shortDescLabel)
-        }
+        // TODO #7: Decide whether to show this short description when space is tight.
+        let shortDescLabel = createShortDescriptionLabel()
+        contentStackView.addArrangedSubview(shortDescLabel)
 
         contentStackView.addArrangedSubview(createDivider())
 
-        // Platforms section (hidden at accessibility sizes)
-        if !isAccessibilitySize {
-            let platformsSection = createPlatformsSection()
-            contentStackView.addArrangedSubview(platformsSection)
-            contentStackView.addArrangedSubview(createDivider())
-        }
+        // TODO #7: Hide the platform badges at large text sizes to prioritise main content.
+        let platformsSection = createPlatformsSection()
+        contentStackView.addArrangedSubview(platformsSection)
+        contentStackView.addArrangedSubview(createDivider())
 
         // About section
         let aboutSection = createAboutSection()
@@ -123,18 +122,14 @@ class AccessibilityDetailViewController: UIViewController {
         let playgroundSection = createTestPlaygroundSection()
         contentStackView.addArrangedSubview(playgroundSection)
 
-        // For Developers section (hidden at accessibility sizes)
-        if !isAccessibilitySize {
-            contentStackView.addArrangedSubview(createDivider())
-            let developersSection = createDevelopersSection()
-            contentStackView.addArrangedSubview(developersSection)
-        }
+        // TODO #7: This developer tips section can be hidden at accessibility sizes if it feels overwhelming.
+        contentStackView.addArrangedSubview(createDivider())
+        let developersSection = createDevelopersSection()
+        contentStackView.addArrangedSubview(developersSection)
 
-        // Footer (hidden at accessibility sizes)
-        if !isAccessibilitySize {
-            let footer = createFooter()
-            contentStackView.addArrangedSubview(footer)
-        }
+        // TODO #7: Hide the footer when text is extremely large to keep focus on the essentials.
+        let footer = createFooter()
+        contentStackView.addArrangedSubview(footer)
     }
 
     // MARK: - UI Component Creators
@@ -492,4 +487,22 @@ class FlowLayoutView: UIView {
     override var intrinsicContentSize: CGSize {
         return sizeThatFits(CGSize(width: bounds.width, height: .greatestFiniteMagnitude))
     }
+}
+
+#Preview("Feature Detail") {
+    let feature = AccessibilityFeature.allFeatures.first ?? AccessibilityFeature(
+        name: "Preview",
+        icon: "sparkles",
+        shortDescription: "Preview feature",
+        fullDescription: "",
+        platforms: ["iOS"],
+        color: .systemBlue,
+        activationSteps: [],
+        category: .vision
+    )
+    let vc = AccessibilityDetailViewController(feature: feature)
+    vc.title = feature.name
+    let nav = UINavigationController(rootViewController: vc)
+    nav.navigationBar.prefersLargeTitles = true
+    return nav
 }

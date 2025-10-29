@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 import AVKit
 import AVFoundation
 
@@ -216,15 +217,21 @@ class AudioDescriptionsTestViewController: UIViewController {
 
         // Enable audio description selection
         if let player = player, let playerItem = player.currentItem {
-            let audibleGroup = playerItem.asset.mediaSelectionGroup(forMediaCharacteristic: .audible)
-            if let audibleGroup = audibleGroup {
-                // Filter for audio description characteristic
-                let audioDescriptionOptions = audibleGroup.options.filter {
-                    $0.hasMediaCharacteristic(.describesVideoForAccessibility)
-                }
+            Task { @MainActor in
+                do {
+                    if let audibleGroup = try await playerItem.asset.loadMediaSelectionGroup(for: .audible) {
+                        let audioDescriptionOptions = audibleGroup.options.filter { option in
+                            option.hasMediaCharacteristic(.describesVideoForAccessibility)
+                        }
 
-                if let option = audioDescriptionOptions.first {
-                    playerItem.select(option, in: audibleGroup)
+                        if let option = audioDescriptionOptions.first {
+                            playerItem.select(option, in: audibleGroup)
+                        }
+                    }
+                } catch {
+                    #if DEBUG
+                    print("Audio description track not available: \(error.localizedDescription)")
+                    #endif
                 }
             }
         }
@@ -239,4 +246,12 @@ class AudioDescriptionsTestViewController: UIViewController {
             playerViewController.didMove(toParent: self)
         }
     }
+}
+
+#Preview("Audio Descriptions") {
+    let vc = AudioDescriptionsTestViewController()
+    vc.title = "Audio Descriptions"
+    let nav = UINavigationController(rootViewController: vc)
+    nav.navigationBar.prefersLargeTitles = true
+    return nav
 }
