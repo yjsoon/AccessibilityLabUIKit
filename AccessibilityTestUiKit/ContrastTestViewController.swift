@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class ContrastTestViewController: UIViewController {
 
@@ -286,4 +287,12 @@ class ContrastTestViewController: UIViewController {
 
         return container
     }
+}
+
+#Preview("Contrast") {
+    let vc = ContrastTestViewController()
+    vc.title = "Contrast"
+    let nav = UINavigationController(rootViewController: vc)
+    nav.navigationBar.prefersLargeTitles = true
+    return nav
 }

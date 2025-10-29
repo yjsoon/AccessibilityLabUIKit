@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import SwiftUI
 
 class VoiceControlTestViewController: UIViewController {
+
+    // MARK: - EXERCISE TODO #6: Voice Control Labels (UIKit)
+    // TODO #6: Give every actionable element a unique, descriptive name so Voice Control users can target it with commands.
+    // LEARNING GOAL: Understand how Voice Control matches spoken phrases to accessibility labels.
 
     // MARK: - Properties
     private var feedback: String = "No action yet"
@@ -203,7 +208,8 @@ class VoiceControlTestViewController: UIViewController {
         button.layer.cornerRadius = 30
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: action, for: .touchUpInside)
-        button.accessibilityLabel = title
+        // TODO #6: Give this button a Voice Control friendly label (e.g. "Like button").
+        // button.accessibilityLabel = title
 
         NSLayoutConstraint.activate([
             button.widthAnchor.constraint(equalToConstant: 60),
@@ -250,7 +256,8 @@ class VoiceControlTestViewController: UIViewController {
         toggleSwitch = UISwitch()
         toggleSwitch.isOn = isToggled
         toggleSwitch.addTarget(self, action: #selector(toggleChanged), for: .valueChanged)
-        toggleSwitch.accessibilityLabel = "Notifications"
+        // TODO #6: Add a descriptive accessibility label so Voice Control recognises this switch.
+        // toggleSwitch.accessibilityLabel = "Notifications"
 
         container.addArrangedSubview(label)
         container.addArrangedSubview(toggleSwitch)
@@ -314,7 +321,8 @@ class VoiceControlTestViewController: UIViewController {
         button.layer.borderColor = UIColor.clear.cgColor
         button.contentEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         button.addTarget(self, action: action, for: .touchUpInside)
-        button.accessibilityLabel = title
+        // TODO #6: Label this option clearly (e.g. "Option one button").
+        // button.accessibilityLabel = title
         return button
     }
 
@@ -333,7 +341,8 @@ class VoiceControlTestViewController: UIViewController {
         resetButton.layer.cornerRadius = 12
         resetButton.contentEdgeInsets = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
         resetButton.addTarget(self, action: #selector(resetTapped), for: .touchUpInside)
-        resetButton.accessibilityLabel = "Reset"
+        // TODO #6: Voice Control needs a distinct label here.
+        // resetButton.accessibilityLabel = "Reset"
 
         let confirmButton = UIButton(type: .system)
         confirmButton.setTitle("Confirm", for: .normal)
@@ -344,7 +353,8 @@ class VoiceControlTestViewController: UIViewController {
         confirmButton.layer.cornerRadius = 12
         confirmButton.contentEdgeInsets = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
         confirmButton.addTarget(self, action: #selector(confirmTapped), for: .touchUpInside)
-        confirmButton.accessibilityLabel = "Confirm"
+        // TODO #6: Add a unique confirmation label.
+        // confirmButton.accessibilityLabel = "Confirm"
 
         container.addArrangedSubview(resetButton)
         container.addArrangedSubview(confirmButton)
@@ -439,4 +449,12 @@ extension VoiceControlTestViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+}
+
+#Preview("Voice Control") {
+    let vc = VoiceControlTestViewController()
+    vc.title = "Voice Control"
+    let nav = UINavigationController(rootViewController: vc)
+    nav.navigationBar.prefersLargeTitles = true
+    return nav
 }

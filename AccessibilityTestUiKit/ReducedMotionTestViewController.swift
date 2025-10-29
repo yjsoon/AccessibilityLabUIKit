@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import SwiftUI
 
 class ReducedMotionTestViewController: UIViewController {
+
+    // MARK: - EXERCISE TODO #5: Reduce Motion (UIKit)
+    // TODO #5: Respect the Reduce Motion preference by detecting it and swapping intense animations with calmer alternatives.
+    // LEARNING GOAL: Use `UIAccessibility.isReduceMotionEnabled` and design fallbacks that avoid dizziness or distraction.
 
     private var scrollView: UIScrollView!
     private var contentStackView: UIStackView!
@@ -23,8 +28,9 @@ class ReducedMotionTestViewController: UIViewController {
     private var timerLabel: UILabel!
     private var animationButton: UIButton!
 
+    // TODO #5: Replace this placeholder with `UIAccessibility.isReduceMotionEnabled`.
     private var isReduceMotionEnabled: Bool {
-        return UIAccessibility.isReduceMotionEnabled
+        return false
     }
 
     override func viewDidLoad() {
@@ -356,6 +362,7 @@ class ReducedMotionTestViewController: UIViewController {
         let duration = isReduceMotionEnabled ? 0 : 1.0
 
         // Movement animation
+        // TODO #5: Skip this springy movement entirely when Reduce Motion is on.
         UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut], animations: {
             let maxX = self.view.bounds.width - 80
             let newX = CGFloat.random(in: 20...maxX)
@@ -363,6 +370,7 @@ class ReducedMotionTestViewController: UIViewController {
         })
 
         // Pulse animation
+        // TODO #5: Swap out this repeating pulse with a static icon for users who reduce motion.
         UIView.animate(withDuration: duration, delay: 0, options: [.autoreverse, .repeat], animations: {
             self.pulsingHeart.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         })
@@ -375,6 +383,7 @@ class ReducedMotionTestViewController: UIViewController {
         }
 
         // Card transition
+        // TODO #5: Provide a static alternative (e.g. instant swap) when animations are disabled.
         UIView.animate(withDuration: duration, delay: 0, options: [], animations: {
             self.card1.alpha = self.card1.alpha == 1 ? 0 : 1
             self.card2.alpha = self.card2.alpha == 1 ? 0 : 1
@@ -384,4 +393,12 @@ class ReducedMotionTestViewController: UIViewController {
             self?.runAnimationLoop()
         }
     }
+}
+
+#Preview("Reduce Motion") {
+    let vc = ReducedMotionTestViewController()
+    vc.title = "Reduce Motion"
+    let nav = UINavigationController(rootViewController: vc)
+    nav.navigationBar.prefersLargeTitles = true
+    return nav
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 import AVKit
 import AVFoundation
 
@@ -228,4 +229,12 @@ class CaptionsTestViewController: UIViewController {
             playerViewController.didMove(toParent: self)
         }
     }
+}
+
+#Preview("Captions") {
+    let vc = CaptionsTestViewController()
+    vc.title = "Captions"
+    let nav = UINavigationController(rootViewController: vc)
+    nav.navigationBar.prefersLargeTitles = true
+    return nav
 }

@@ -6,14 +6,20 @@
 //
 
 import UIKit
+import SwiftUI
 
 class DifferentiateColorTestViewController: UIViewController {
+
+    // MARK: - EXERCISE TODO #4: Differentiate Without Colour (UIKit)
+    // TODO #4: Detect the user's preference and provide icons/text in addition to colour so information is never colour-only.
+    // LEARNING GOAL: Respect `UIAccessibility.shouldDifferentiateWithoutColor` and adapt UI affordances accordingly.
 
     private var scrollView: UIScrollView!
     private var contentStackView: UIStackView!
 
+    // TODO #4: Replace this placeholder return with `UIAccessibility.shouldDifferentiateWithoutColor`.
     private var isDifferentiateEnabled: Bool {
-        return UIAccessibility.shouldDifferentiateWithoutColor
+        return false
     }
 
     override func viewDidLoad() {
@@ -103,7 +109,8 @@ class DifferentiateColorTestViewController: UIViewController {
         container.addArrangedSubview(titleLabel)
 
         let statusLabel = UILabel()
-        statusLabel.text = isDifferentiateEnabled ? "Differentiate Without Color: ON" : "Differentiate Without Color: OFF"
+        // TODO #4: Update this text to reflect the real setting once you replace the placeholder property.
+        statusLabel.text = "Differentiate Without Colour: (pending)"
         statusLabel.font = .preferredFont(forTextStyle: .title3)
         statusLabel.adjustsFontForContentSizeCategory = true
         statusLabel.textAlignment = .center
@@ -161,6 +168,8 @@ class DifferentiateColorTestViewController: UIViewController {
 
         // Circle or icon based on setting
         let indicatorView: UIView
+        // TODO #4: Once you enable `isDifferentiateEnabled`, this block should provide an icon instead of a plain colour swatch.
+        // TODO #4: When differentiation is enabled, add an icon so colour-blind users get extra confirmation.
         if isDifferentiateEnabled {
             // Show icon
             let imageView = UIImageView()
@@ -235,6 +244,7 @@ class DifferentiateColorTestViewController: UIViewController {
         stackView.layer.borderColor = (isValid ? UIColor.systemGreen : UIColor.systemRed).cgColor
 
         // Show icon when differentiate is enabled
+        // TODO #4: Provide a clear icon plus top-left checkmark when colour alone isn't enough.
         if isDifferentiateEnabled {
             let imageView = UIImageView()
             let config = UIImage.SymbolConfiguration(pointSize: 16, weight: .medium)
@@ -340,4 +350,12 @@ class DifferentiateColorTestViewController: UIViewController {
 
         return container
     }
+}
+
+#Preview("Differentiate Without Colour") {
+    let vc = DifferentiateColorTestViewController()
+    vc.title = "Differentiate"
+    let nav = UINavigationController(rootViewController: vc)
+    nav.navigationBar.prefersLargeTitles = true
+    return nav
 }

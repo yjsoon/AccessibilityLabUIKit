@@ -7,8 +7,13 @@
 //
 
 import UIKit
+import SwiftUI
 
 class ViewController: UIViewController {
+
+    // MARK: - EXERCISE TODO #7: Adaptive Layouts (UIKit)
+    // TODO #7: Hide decorative content and adjust layouts when text reaches accessibility sizes to keep the list scannable.
+    // LEARNING GOAL: Use Dynamic Type checks to decide which flourishes to show or hide.
 
     // MARK: - Properties
     private var tableView: UITableView!
@@ -110,9 +115,10 @@ class ViewController: UIViewController {
         ])
 
         // Hide description at accessibility sizes
-        if isAccessibilitySize {
-            descriptionLabel.isHidden = true
-        }
+        // TODO #7: At accessibility sizes, hide this decorative description so content fits better.
+        // if isAccessibilitySize {
+        //     descriptionLabel.isHidden = true
+        // }
 
         // Calculate size
         let targetSize = CGSize(width: view.bounds.width, height: UIView.layoutFittingCompressedSize.height)
@@ -201,6 +207,14 @@ extension ViewController: UISearchResultsUpdating {
     }
 }
 
+#Preview("Feature List") {
+    let vc = ViewController()
+    vc.title = "Accessibility"
+    let nav = UINavigationController(rootViewController: vc)
+    nav.navigationBar.prefersLargeTitles = true
+    return nav
+}
+
 // MARK: - Custom Cell
 class AccessibilityFeatureCell: UITableViewCell {
     private let iconImageView = UIImageView()
@@ -277,21 +291,21 @@ class AccessibilityFeatureCell: UITableViewCell {
         nameLabel.text = feature.name
         descriptionLabel.text = feature.shortDescription
 
-        // Hide icon and description at accessibility sizes
-        iconImageView.isHidden = isAccessibilitySize
-        descriptionLabel.isHidden = isAccessibilitySize
+        // TODO #7: When the text is huge, hide decorative pieces like the icon and description to save space.
+        // iconImageView.isHidden = isAccessibilitySize
+        // descriptionLabel.isHidden = isAccessibilitySize
 
         // Configure icon
-        if !isAccessibilitySize {
-            let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .medium)
-            iconImageView.image = UIImage(systemName: feature.icon, withConfiguration: config)
-            iconImageView.tintColor = feature.color
-        }
+        // TODO #7: Only show the icon when there's enough room; otherwise keep it hidden.
+        let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .medium)
+        iconImageView.image = UIImage(systemName: feature.icon, withConfiguration: config)
+        iconImageView.tintColor = feature.color
 
         // Adjust constraints based on accessibility size
-        if isAccessibilitySize {
-            nameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16).isActive = true
-        }
+        // TODO #7: Rework constraints for large text so the label can sit flush with the leading edge.
+        // if isAccessibilitySize {
+        //     nameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16).isActive = true
+        // }
 
         // Accessibility
         accessibilityLabel = feature.name
@@ -350,4 +364,3 @@ class CategoryHeaderView: UITableViewHeaderFooterView {
         iconImageView.tintColor = category.color
     }
 }
-

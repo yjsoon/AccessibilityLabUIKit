@@ -6,15 +6,22 @@
 //
 
 import UIKit
+import SwiftUI
 
 class LargerTextTestViewController: UIViewController {
+
+    // MARK: - EXERCISE TODO #2: Dynamic Type & Larger Text (UIKit)
+    // TODO #2: Follow the inline instructions to detect Dynamic Type changes and adapt your layout when text reaches accessibility sizes.
+    // LEARNING GOAL: Support all users by respecting their preferred text size, especially the larger accessibility categories.
 
     // MARK: - Properties
     private var scrollView: UIScrollView!
     private var contentStackView: UIStackView!
 
+    // TODO #2: Replace the placeholder return value with the Dynamic Type check below.
+    // return traitCollection.preferredContentSizeCategory.isAccessibilityCategory
     private var isAccessibilitySize: Bool {
-        return traitCollection.preferredContentSizeCategory.isAccessibilityCategory
+        return false
     }
 
     // MARK: - Lifecycle
@@ -108,7 +115,10 @@ class LargerTextTestViewController: UIViewController {
 
         let sizeLabel = UILabel()
         let contentSize = traitCollection.preferredContentSizeCategory
-        sizeLabel.text = isAccessibilitySize ? "Accessibility Size" : "Standard Size"
+        // TODO #2: Replace the placeholder text below with a message that checks `isAccessibilitySize` and shows the actual category.
+        // Example: `sizeLabel.text = isAccessibilitySize ? "Accessibility Size Active" : "Standard Size"`
+        // You can also show `contentSize` to help learners connect settings to code.
+        sizeLabel.text = "Standard Size (placeholder)"
         sizeLabel.font = .preferredFont(forTextStyle: .title2)
         sizeLabel.adjustsFontForContentSizeCategory = true
         sizeLabel.textAlignment = .center
@@ -195,9 +205,15 @@ class LargerTextTestViewController: UIViewController {
 
     private func createIconTextItem(icon: String, text: String, color: UIColor) -> UIView {
         let stackView = UIStackView()
-        stackView.axis = isAccessibilitySize ? .vertical : .horizontal
+        stackView.axis = .horizontal
         stackView.spacing = 12
-        stackView.alignment = isAccessibilitySize ? .leading : .center
+        stackView.alignment = .center
+        // TODO #2: When `isAccessibilitySize` is true, switch this to a vertical layout for better readability.
+        // Example:
+        // if isAccessibilitySize {
+        //     stackView.axis = .vertical
+        //     stackView.alignment = .leading
+        // }
 
         let iconView = UIImageView()
         let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .medium)
@@ -274,9 +290,10 @@ class LargerTextTestViewController: UIViewController {
         container.backgroundColor = .secondarySystemGroupedBackground
 
         let stackView = UIStackView()
-        stackView.axis = isAccessibilitySize ? .vertical : .horizontal
+        stackView.axis = .horizontal
         stackView.spacing = 16
-        stackView.alignment = isAccessibilitySize ? .leading : .center
+        stackView.alignment = .center
+        // TODO #2: As text grows, update this stack view to `.vertical` and `.leading` alignment when `isAccessibilitySize` is true.
         stackView.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(stackView)
 
@@ -394,4 +411,12 @@ class LargerTextTestViewController: UIViewController {
 
         return container
     }
+}
+
+#Preview("Larger Text") {
+    let vc = LargerTextTestViewController()
+    vc.title = "Larger Text"
+    let nav = UINavigationController(rootViewController: vc)
+    nav.navigationBar.prefersLargeTitles = true
+    return nav
 }
